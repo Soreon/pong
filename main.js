@@ -30,7 +30,7 @@ const ball = {
     x: 0,
     y: 0,
   },
-  speed: 10,
+  speed: 4,
 };
 
 function clamp(number, min, max) { return Math.min(Math.max(number, min), max); }
@@ -104,6 +104,16 @@ function draw() {
 
 function step() {
   if (ball.engaged) {
+    // TODO: faire les autres paroies
+    const tempX = ball.x + (ball.vec.x * ball.speed);
+    if (tempX <= 0) {
+      if (ball.vec.y < 0) {
+        const angle = Math.PI - Math.atan2(ball.vec.y, ball.vec.x);
+        ball.vec.x = Math.cos(angle);
+        ball.vec.y = Math.sin(angle);
+      }
+    }
+
     ball.x += ball.vec.x * ball.speed;
     ball.y += ball.vec.y * ball.speed;
   }
